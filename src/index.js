@@ -10,12 +10,15 @@ import UpcomingMovies from './pages/upcomingMovies';
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
+import AuthContextProvider from "./contexts/authContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import Watchlist from './pages/watchlistMovies';
 import Actors from './pages/actorHomePage';
 import ActorDetails from './pages/actorDetailsPage';
 import LatestMovie from './pages/latestMovies';
 import TrendingMovies from "./pages/trendingMovies";
+import Login from "./pages/loginPage";
+import SignUpPage from "./pages/signUpPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +34,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+      <AuthContextProvider>
         <SiteHeader />
         <MoviesContextProvider>
         <Routes>
@@ -45,8 +49,11 @@ const App = () => {
           <Route path="/actors" element={ <Actors /> } />
           <Route path="/actor/:id" element={<ActorDetails />} />
           <Route path="/movies/latest" element={<LatestMovie />} />
+          <Route path="/login" element={ <Login /> } />
+          <Route path="/signup" element={ <SignUpPage /> } />
         </Routes>
         </MoviesContextProvider>
+        </AuthContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
