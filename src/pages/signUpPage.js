@@ -1,9 +1,33 @@
 import React, { useContext, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { AuthContext } from '../contexts/authContext';
+import { styled } from '@mui/material/styles';
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
-const SignUpPage = props => {
-  const context = useContext(AuthContext)
+const SignUpPageContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '100vh',
+  backgroundColor: theme.palette.background.default,
+}));
+
+const SignUpForm = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: theme.spacing(2), // Remove this line if theme is not used
+  width: 300,
+  backgroundColor: theme.palette.background.paper, // Remove this line if theme is not used
+  borderRadius: theme.shape.borderRadius, // Remove this line if theme is not used
+  boxShadow: theme.shadows[4], // Remove this line if theme is not used
+}));
+
+const SignUpPage = () => {
+  const context = useContext(AuthContext);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
@@ -24,21 +48,44 @@ const SignUpPage = props => {
   }
 
   return (
-    <>
-      <h2>SignUp page</h2>
-      <p>You must register a username and password to log in </p>
-      <input value={userName} placeholder="user name" onChange={e => {
-        setUserName(e.target.value);
-      }}></input><br />
-      <input value={password} type="password" placeholder="password" onChange={e => {
-        setPassword(e.target.value);
-      }}></input><br />
-      <input value={passwordAgain} type="password" placeholder="password again" onChange={e => {
-        setPasswordAgain(e.target.value);
-      }}></input><br />
-      {/* Login web form  */}
-      <button onClick={register}>Register</button>
-    </>
+    <SignUpPageContainer>
+      <Typography variant="h4" gutterBottom>SignUp page</Typography>
+      <SignUpForm>
+        <Typography>You must register a username and password to log in</Typography>
+        <TextField
+          value={userName}
+          id="username"
+          label="User Name"
+          variant="outlined"
+          margin="normal"
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        <TextField
+          value={password}
+          id="password"
+          label="Password"
+          type="password"
+          variant="outlined"
+          margin="normal"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <TextField
+          value={passwordAgain}
+          id="passwordAgain"
+          label="Password Again"
+          type="password"
+          variant="outlined"
+          margin="normal"
+          onChange={(e) => setPasswordAgain(e.target.value)}
+        />
+        <Button variant="contained" color="primary" onClick={register}>
+          Register
+        </Button>
+        <Typography>
+          Already Registered? <Link to="/login">Log In!</Link>
+        </Typography>
+      </SignUpForm>
+    </SignUpPageContainer>
   );
 };
 
