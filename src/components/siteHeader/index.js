@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,10 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { AuthContext } from "../../contexts/authContext";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
-const SiteHeader = ({ history }) => {
+const SiteHeader = () => {
+  const context = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -32,7 +34,6 @@ const SiteHeader = ({ history }) => {
     { label: "Watchlist", path: "/movies/watchlist" },
     { label: "Actors", path: "/actors" },
     { label: "Login", path: "/login" },
-
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -42,6 +43,13 @@ const SiteHeader = ({ history }) => {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  if (context.isAuthenticated) {
+    menuOptions.push({
+      label: `Welcome ${context.userName}`,
+      isWelcomeMessage: true, // Use this flag to identify the welcome message
+    });
+  }
 
   return (
     <>
@@ -91,17 +99,24 @@ const SiteHeader = ({ history }) => {
               </>
             ) : (
               <>
-                {menuOptions.map((opt) => (
-                  <Button
-                    key={opt.label}
-                    color="inherit"
-                    onClick={() => handleMenuSelect(opt.path)}
-                  >
-                    {opt.label}
-                  </Button>
-                ))}
-              </>
-            )}
+              {menuOptions.map((opt) => (
+                <React.Fragment key={opt.label}>
+                  {opt.isWelcomeMessage ? (
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                      {opt.label}
+                    </Typography>
+                  ) : (
+                    <Button
+                      color="inherit"
+                      onClick={() => handleMenuSelect(opt.path)}
+                    >
+                      {opt.label}
+                    </Button>
+                  )}
+                </React.Fragment>
+              ))}
+            </>
+          )}
         </Toolbar>
       </AppBar>
       <Offset />
