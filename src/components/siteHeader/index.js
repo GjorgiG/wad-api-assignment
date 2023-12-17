@@ -33,23 +33,28 @@ const SiteHeader = () => {
     { label: "Latest", path: "/movies/latest" },
     { label: "Watchlist", path: "/movies/watchlist" },
     { label: "Actors", path: "/actors" },
-    { label: "Login", path: "/login" },
+    ...(context.isAuthenticated
+      ? [
+          { label: `Welcome ${context.userName}`, isWelcomeMessage: true },
+          { label: "Sign Out", path: "/signout"}
+        ]
+      : [{ label: "Login", path: "/login" }]),
   ];
 
   const handleMenuSelect = (pageURL) => {
-    navigate(pageURL, { replace: true });
+    console.log("handleMenuSelect called");
+    if (pageURL === "/signout") {
+      context.signout();
+      navigate("/", { replace: true });
+    } else {
+      console.log("Navigating to:", pageURL);
+      navigate(pageURL, { replace: true });
+    }
   };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  if (context.isAuthenticated) {
-    menuOptions.push({
-      label: `Welcome ${context.userName}`,
-      isWelcomeMessage: true, // Use this flag to identify the welcome message
-    });
-  }
 
   return (
     <>
@@ -106,12 +111,14 @@ const SiteHeader = () => {
                       {opt.label}
                     </Typography>
                   ) : (
-                    <Button
-                      color="inherit"
-                      onClick={() => handleMenuSelect(opt.path)}
-                    >
-                      {opt.label}
-                    </Button>
+                    !opt.isWelcomeMessage && (
+                      <Button
+                        color="inherit"
+                        onClick={() => handleMenuSelect(opt.path)}
+                      >
+                        {opt.label}
+                      </Button>
+                    )
                   )}
                 </React.Fragment>
               ))}

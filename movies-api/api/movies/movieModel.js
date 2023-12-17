@@ -12,7 +12,7 @@ const MovieSchema = new Schema({
   original_title: { type: String },
   genre_ids: [{ type: Number }],
   original_language: { type: String },
-  title: { type: String },
+  title: { type: String, required: true },
   backdrop_path: { type: String },
   popularity: { type: Number },
   vote_count: { type: Number },

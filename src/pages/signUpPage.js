@@ -19,11 +19,11 @@ const SignUpForm = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: theme.spacing(2), // Remove this line if theme is not used
+  padding: theme.spacing(2),
   width: 300,
-  backgroundColor: theme.palette.background.paper, // Remove this line if theme is not used
-  borderRadius: theme.shape.borderRadius, // Remove this line if theme is not used
-  boxShadow: theme.shadows[4], // Remove this line if theme is not used
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: theme.shadows[4],
 }));
 
 const SignUpPage = () => {

@@ -1,24 +1,25 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useCallback } from "react";
+import PropTypes from "prop-types";
 import { login, signup } from "../api/tmdb-api";
 
 export const AuthContext = createContext(null);
 
 const AuthContextProvider = (props) => {
-  const existingToken = localStorage.getItem("token");
+  // const existingToken = localStorage.getItem("token");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authToken, setAuthToken] = useState(existingToken);
+  // const [authToken, setAuthToken] = useState(existingToken);
   const [userName, setUserName] = useState("");
 
   //Function to put JWT token in local storage.
   const setToken = (data) => {
     localStorage.setItem("token", data);
-    setAuthToken(data);
+    // setAuthToken(data);
   }
 
   const authenticate = async (username, password) => {
     const result = await login(username, password);
     if (result.token) {
-      setToken(result.token)
+      setToken(result.token);
       setIsAuthenticated(true);
       setUserName(username);
     }
@@ -30,9 +31,10 @@ const AuthContextProvider = (props) => {
     return (result.code == 201) ? true : false;
   };
 
-  const signout = () => {
-    setTimeout(() => setIsAuthenticated(false), 100);
-  }
+  const signout = useCallback(() => {
+    console.log("Signing out..."); // Check if this log appears
+    setIsAuthenticated(false);
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -41,12 +43,16 @@ const AuthContextProvider = (props) => {
         authenticate,
         register,
         signout,
-        userName
+        userName,
       }}
     >
       {props.children}
     </AuthContext.Provider>
   );
+};
+
+AuthContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default AuthContextProvider;
