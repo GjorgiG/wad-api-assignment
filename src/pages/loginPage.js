@@ -47,7 +47,7 @@ const LoginPage = () => {
     <LoginPageContainer>
       <Typography variant="h4" gutterBottom>Login page</Typography>
       <LoginForm>
-        <Typography>You must log in to view the protected pages</Typography>
+        <Typography>You must log in to see your favourites/watchlist!</Typography>
         <TextField
           id="username"
           label="User Name"
@@ -63,7 +63,7 @@ const LoginPage = () => {
           margin="normal"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button variant="contained" color="primary" onClick={login}>
+        <Button variant="contained" style={{ backgroundColor: 'purple', color: 'white' }} onClick={login}>
           Log in
         </Button>
         <Typography>

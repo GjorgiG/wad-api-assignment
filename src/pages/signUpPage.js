@@ -49,9 +49,9 @@ const SignUpPage = () => {
 
   return (
     <SignUpPageContainer>
-      <Typography variant="h4" gutterBottom>SignUp page</Typography>
+      <Typography variant="h4" gutterBottom>Register Here</Typography>
       <SignUpForm>
-        <Typography>You must register a username and password to log in</Typography>
+        <Typography>You must register with a username and password to log in.</Typography>
         <TextField
           value={userName}
           id="username"
@@ -78,7 +78,7 @@ const SignUpPage = () => {
           margin="normal"
           onChange={(e) => setPasswordAgain(e.target.value)}
         />
-        <Button variant="contained" color="primary" onClick={register}>
+        <Button variant="contained" style={{ backgroundColor: 'purple', color: 'white' }} onClick={register}>
           Register
         </Button>
         <Typography>
