@@ -1,5 +1,31 @@
 import fetch from 'node-fetch';
 
+
+// imported both functions to call the MongoDB for the login and signup
+export const login = async (username, password) => {
+  const response = await fetch('http://localhost:8080/api/users', {
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify({ username: username, password: password })
+  });
+  return response.json();
+};
+
+export const signup = async (username, password) => {
+  const response = await fetch('http://localhost:8080/api/users?action=register', {
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify({ username: username, password: password })
+  });
+  return response.json();
+};
+
+
+
 export const getMovies = (page = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
@@ -187,26 +213,4 @@ export const getActorCredits = ({ queryKey }) => {
       });
   };
 
-  export const login = async (username, password) => {
-    const response = await fetch('http://localhost:8080/api/users', {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: 'post',
-        body: JSON.stringify({ username: username, password: password })
-    });
-    return response.json();
-};
-
-export const signup = async (username, password) => {
-    const response = await fetch('http://localhost:8080/api/users?action=register', {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: 'post',
-        body: JSON.stringify({ username: username, password: password })
-    });
-    return response.json();
-};
-  
-  
+ 

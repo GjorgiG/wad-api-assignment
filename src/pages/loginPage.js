@@ -43,6 +43,7 @@ const LoginPage = () => {
     return <Navigate to={from} />;
   }
 
+  // welcome message for each user will be displayed in the siteheader
   return (
     <LoginPageContainer>
       <Typography variant="h4" gutterBottom>Login page</Typography>

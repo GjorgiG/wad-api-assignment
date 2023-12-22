@@ -47,11 +47,16 @@ const SignUpPage = () => {
     return <Navigate to="/login" />;
   }
 
+
+  // added a message here specifying the needs of the password
   return (
     <SignUpPageContainer>
       <Typography variant="h4" gutterBottom>Register Here</Typography>
       <SignUpForm>
         <Typography>You must register with a username and password to log in.</Typography>
+        <Typography variant="body2" color="textSecondary" gutterBottom>
+          Password must be 8 characters long and contain at least one number and one special character.
+        </Typography>
         <TextField
           value={userName}
           id="username"

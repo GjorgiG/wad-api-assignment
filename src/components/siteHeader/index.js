@@ -33,7 +33,7 @@ const SiteHeader = () => {
     { label: "Latest", path: "/movies/latest" },
     { label: "Watchlist", path: "/movies/watchlist" },
     { label: "Actors", path: "/actors" },
-    ...(context.isAuthenticated
+    ...(context.isAuthenticated // this context and path will look to the login
       ? [
           { label: `Welcome ${context.userName}`, isWelcomeMessage: true },
           { label: "Sign Out", path: "/signout"}

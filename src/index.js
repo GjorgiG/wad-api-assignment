@@ -31,6 +31,8 @@ const queryClient = new QueryClient({
   },
 });
 
+
+// added the protected routes and wrapped the site header in auth context
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
