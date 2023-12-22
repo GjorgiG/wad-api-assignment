@@ -6,10 +6,8 @@ Name: Gjorgi Gjorgiev
 
 A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** (or modifications to existing features)
  
- + Feature 1 
- + Feature 2 
- + Feature 3 
- + etc
+ + Sign Up functionality
+ + Login functionality
 
 ## Setup requirements.
 
@@ -17,8 +15,7 @@ The same as normally running an app. "npm run" for the React App & "npm run dev"
 
 ## API Configuration
 
-Describe any configuration that needs to take place before running the API. For example, creating an `.env` file and what variables to put in it. Give an example of how this might be done.
-
+I created an .env file in the labs and used that one for my assignment as well.
 ______________________
 NODEENV=development
 PORT=8080
@@ -31,7 +28,8 @@ ______________________
 
 ## API Design
 
-Didn't get the API design working for movies or reviews and made an attempt at linking favourites to users but was unable and reverted back to previous version.
++ /api/users | POST | Logs in a new user if authentication is successful.
++ /api/users?action=register | POST | Registers a new user to the app.
 
 ## Security and Authentication
 
